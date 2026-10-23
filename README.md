@@ -48,7 +48,54 @@ The interface is inspired by Swiss airport wayfinding crossed with an airline bo
 
 ---
 
-## 4. Verification & Testing
+## 4. Quickstart & Running Locally
+
+### Prerequisites
+- **Node.js**: v18 or higher & `npm`
+- **Python**: v3.10 or higher & `python3-venv`
+- **Git**
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/Yashwanth-devspec/EVS.git
+cd EVS
+```
+
+### 2. Set up the Python virtual environment
+```bash
+# Create and activate virtual environment
+python3 -m venv venv
+source venv/bin/activate
+
+# Install backend dependencies
+pip install -r requirements.txt
+```
+
+### 3. Install Node.js frontend dependencies
+```bash
+npm install
+```
+
+### 4. Configure environment (optional)
+```bash
+cp .env.example .env
+# Edit .env if you wish to adjust ADMIN_PASSWORD, offline mode, or custom port
+```
+
+### 5. Start development servers
+Run both the FastAPI backend (`:8000`) and the Vite React frontend (`:5173`) with one command:
+```bash
+npm run dev
+```
+Open **[http://localhost:5173](http://localhost:5173)** in your browser.
+
+> You can also run them independently if desired:
+> - Backend: `npm run dev:backend` (FastAPI with reload at `http://127.0.0.1:8000`)
+> - Frontend: `npm run dev:frontend` (Vite dev server at `http://localhost:5173`)
+
+---
+
+## 5. Verification & Testing
 
 ### Backend Unit Tests (pytest)
 ```bash
