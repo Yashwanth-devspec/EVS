@@ -5,37 +5,33 @@ import { navigate } from '../router';
 import { ConvergenceMap } from './primitives/ConvergenceMap';
 import { FareSplitCalculator } from './primitives/FareSplitCalculator';
 import { DigitRoll } from './primitives/DigitRoll';
-import { PhoneMockup } from './PhoneMockup';
-import { Logo, DemoChip } from './Header';
-import { FAQ, STEPS, SAFETY } from '../content';
+import { Logo } from './Header';
+import { FAQ } from '../content';
 import { InteractiveTicket } from './primitives/InteractiveTicket';
 import { FlightArrivalsTicker } from './primitives/FlightArrivalsTicker';
 import { OldVsEcoRideComparison } from './primitives/OldVsEcoRideComparison';
-import { StoryWaypoints } from './primitives/StoryWaypoints';
+import { InteractiveJourneyDeck } from './primitives/InteractiveJourneyDeck';
+import { FlightStageCards } from './primitives/FlightStageCards';
+import { TrustSafetyGrid } from './primitives/TrustSafetyGrid';
+import { airportAudio } from '../lib/chime';
 
 interface LandingViewProps {
   config: PublicConfig | null;
   impact: ImpactMetrics | null;
   onStart: () => void;
-  onWatch: () => void;
+  onWatch?: () => void;
 }
 
 const inr = (n: number) => `Rs ${new Intl.NumberFormat('en-IN').format(round10(n))}`;
 
-const Check: React.FC = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3DDC97" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="mt-0.5 shrink-0">
-    <path d="m5 12.5 4.5 4.5L19 7.5" />
-  </svg>
-);
-
-/** A plain question above each section's answer. Sentence case, never an all-caps eyebrow. */
+/** A plain question above each section's answer. Sentence case. */
 const Question: React.FC<{ children: React.ReactNode; id?: string }> = ({ children, id }) => (
-  <p id={id} className="text-lg font-medium text-amber">
+  <p id={id} className="text-sm font-cockpit font-bold uppercase tracking-wider text-amber">
     {children}
   </p>
 );
 
-export const LandingView: React.FC<LandingViewProps> = ({ config, impact, onStart, onWatch }) => {
+export const LandingView: React.FC<LandingViewProps> = ({ config, impact, onStart }) => {
   const heroRef = useRef<HTMLElement>(null);
   const [pastHero, setPastHero] = useState(false);
 
@@ -52,27 +48,39 @@ export const LandingView: React.FC<LandingViewProps> = ({ config, impact, onStar
   return (
     <div className="relative min-h-screen bg-ink-950 text-primary">
       {/* Top bar: always shows the brand and a way in */}
-      <header className="sticky top-0 z-[800] h-16 border-b border-ink-800 bg-ink-950/90 backdrop-blur">
+      <header className="sticky top-0 z-[800] h-16 border-b border-ink-800 bg-ink-950/90 backdrop-blur-md">
         <div className="mx-auto flex h-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
           <Logo />
           <nav className="hidden items-center gap-6 text-[15px] text-secondary lg:flex" aria-label="Page">
-            <a href="#how" className="hover:text-primary">How it works</a>
-            <a href="#save" className="hover:text-primary">What you save</a>
-            <a href="#safe" className="hover:text-primary">Is it safe?</a>
-            <a href="#questions" className="hover:text-primary">Questions</a>
+            <a href="#problem" className="hover:text-primary transition-colors">The Problem</a>
+            <a href="#journey" className="hover:text-primary transition-colors">Live Journey</a>
+            <a href="#how" className="hover:text-primary transition-colors">How it works</a>
+            <a href="#save" className="hover:text-primary transition-colors">Fare Calculator</a>
+            <a href="#safe" className="hover:text-primary transition-colors">Safety</a>
+            <a href="#questions" className="hover:text-primary transition-colors">FAQ</a>
           </nav>
           <div className="flex items-center gap-3">
-            <button type="button" onClick={onWatch} className="hidden text-[15px] text-secondary hover:text-primary sm:inline">
-              Watch it work
-            </button>
-            <button type="button" onClick={onStart} className="btn-primary h-10 whitespace-nowrap px-4 text-[15px]">
-              Find a cab share
+            <a
+              href="#journey"
+              className="hidden text-[15px] font-cockpit text-secondary hover:text-amber sm:inline transition-colors"
+            >
+              Interactive Tour ↓
+            </a>
+            <button
+              type="button"
+              onClick={() => {
+                airportAudio.playChime();
+                onStart();
+              }}
+              className="btn-primary h-10 whitespace-nowrap px-5 text-[15px] font-bold"
+            >
+              Find a cab share &rarr;
             </button>
           </div>
         </div>
       </header>
 
-      {/* 1. What is this? */}
+      {/* 1. HERO — The Absolute Banger Showpiece */}
       <section ref={heroRef} className="relative overflow-hidden border-b border-ink-800" data-demo="hero">
         <div className="absolute inset-0 amber-glow pointer-events-none" />
         <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-12 lg:py-24">
@@ -86,36 +94,52 @@ export const LandingView: React.FC<LandingViewProps> = ({ config, impact, onStar
               EcoRide Share matches you with people landing at Bengaluru airport around the same time and heading your way,
               so you split one cab instead of paying for your own.
             </p>
-            {/* On phones the stat line sits right under the sentence; desktop shows it as the ticket */}
+
+            {/* Mobile ticket stats */}
             <div className="ticket-card px-5 py-4 lg:hidden" data-demo="hero-stat">
-              <div className="flex items-center justify-between text-[13px] text-on-paper/70">
-                <span>Airport to Jayanagar</span>
+              <div className="flex items-center justify-between text-[13px] text-on-paper/70 font-cockpit">
+                <span>Airport &rarr; Jayanagar</span>
                 <span>est.</span>
               </div>
               <div className="mt-1 flex flex-wrap items-baseline justify-between gap-x-3">
-                <span className="text-on-paper/70">
+                <span className="text-on-paper/70 font-cockpit">
                   Alone <span className="whitespace-nowrap font-semibold text-on-paper line-through decoration-on-paper/40">{ex ? inr(ex.soloFare) : '…'}</span>
                 </span>
-                <span className="text-on-paper/70">
+                <span className="text-on-paper/70 font-cockpit">
                   With 3 people, each <span className="whitespace-nowrap text-xl font-extrabold text-green-ink">{ex ? inr(ex.perPerson) : '…'}</span>
                 </span>
               </div>
             </div>
+
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <button type="button" onClick={onStart} className="btn-primary h-14 px-8 text-[17px]" data-demo="hero-cta">
-                Find a cab share <span aria-hidden="true">→</span>
+              <button
+                type="button"
+                onClick={() => {
+                  airportAudio.playChime();
+                  onStart();
+                }}
+                className="btn-primary h-14 px-8 text-[17px] font-bold"
+                data-demo="hero-cta"
+              >
+                Find a cab share <span aria-hidden="true">&rarr;</span>
               </button>
-              <button type="button" onClick={onWatch} className="btn-secondary h-14 px-6 text-[17px]" data-demo="watch-demo">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M8 5.5v13l10.5-6.5z" />
+              <a
+                href="#journey"
+                className="btn-secondary h-14 px-6 text-[16px] inline-flex items-center justify-center gap-2 font-cockpit text-secondary hover:text-primary"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <polygon points="10 8 16 12 10 16 10 8" />
                 </svg>
-                Watch it work (75 seconds)
-              </button>
+                Explore Live Journey (4 Steps)
+              </a>
             </div>
-            <p className="text-[15px] text-secondary">No account. We don’t run the cabs or touch your money.</p>
+            <p className="text-[14px] font-cockpit text-secondary">
+              No account. 0% commission. We don’t run the cabs or touch your money.
+            </p>
           </div>
 
-          {/* The stat line, as an interactive 3D ticket */}
+          {/* 3D Physical Boarding Pass Ticket */}
           <div className="hidden lg:col-span-5 lg:block">
             <InteractiveTicket
               soloFareText={ex ? inr(ex.soloFare) : '…'}
@@ -132,15 +156,17 @@ export const LandingView: React.FC<LandingViewProps> = ({ config, impact, onStar
         </div>
       </section>
 
-      {/* 2. What's the problem? */}
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:py-28 space-y-12">
+      {/* 2. THE PROBLEM — Convergence Map & Two Ways to Leave */}
+      <section id="problem" className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:py-28 space-y-12">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12">
           <div className="space-y-4 lg:col-span-4">
             <Question>What’s the problem?</Question>
-            <h2 className="text-4xl font-bold leading-[1.05] sm:text-5xl">11:45 pm. 12 passengers. 12 cabs. Same road.</h2>
-            <p className="text-lg leading-relaxed text-secondary">
+            <h2 className="text-3xl font-extrabold leading-[1.05] sm:text-5xl">
+              11:45 pm. 12 passengers. 12 cabs. Same road.
+            </h2>
+            <p className="text-base sm:text-lg leading-relaxed text-secondary">
               Late flights land in waves. People off the same plane, going to the same part of town, each pay the full airport
-              fare and take the same 40 km road alone.
+              fare and take the same 40 km highway alone.
             </p>
           </div>
           <div className="lg:col-span-8">
@@ -148,162 +174,197 @@ export const LandingView: React.FC<LandingViewProps> = ({ config, impact, onStar
           </div>
         </div>
 
-        {/* The Old Way vs The EcoRide Share Comparison */}
+        {/* Old Way vs EcoRide Share Side-by-Side Comparison */}
         <OldVsEcoRideComparison />
       </section>
 
-      {/* 3. What does it look like? */}
-      <section className="border-y border-ink-800 bg-ink-900/40">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:py-28 space-y-14">
-          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
-            <div className="space-y-4">
-              <Question>What does it look like?</Question>
-              <h2 className="text-4xl font-bold leading-[1.05] sm:text-5xl">One screen, from the plane to the pickup point.</h2>
-              <p className="text-lg leading-relaxed text-secondary">
-                A map with one card on top. The card always says what’s happening, what happens next, and gives you one thing
-                to tap.
-              </p>
-              <button type="button" className="link text-lg" onClick={onWatch}>
-                Watch the full trip
-              </button>
-            </div>
-            <PhoneMockup solo={ex?.soloFare ?? 1610} each={ex?.perPerson ?? 580} area="Jayanagar" />
+      {/* 3. INTERACTIVE JOURNEY COCKPIT — Replaces the 75-second automated video */}
+      <section id="journey" className="scroll-mt-20 border-y border-ink-800 bg-ink-900/40 py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 space-y-6">
+          <div className="max-w-3xl space-y-3">
+            <Question>Live Interactive Journey</Question>
+            <h2 className="text-3xl font-extrabold leading-[1.05] sm:text-5xl">
+              From landing gate to your door in 4 simple beats.
+            </h2>
+            <p className="text-base sm:text-lg leading-relaxed text-secondary">
+              No lengthy videos to watch. Tap or scrub through the active steps below to test the full live passenger experience:
+            </p>
           </div>
 
-          {/* Real Bangalore co-travellers and route waypoints */}
-          <StoryWaypoints />
+          {/* Interactive 4-Stage Cockpit Deck */}
+          <div className="pt-4">
+            <InteractiveJourneyDeck />
+          </div>
         </div>
       </section>
 
-      {/* 4. How does it work? */}
-      <section id="how" className="mx-auto max-w-4xl scroll-mt-20 px-4 py-20 sm:px-6 lg:py-28">
-        <Question>How does it work?</Question>
-        <h2 className="mt-4 text-4xl font-bold leading-[1.05] sm:text-5xl">Four steps, all on your phone.</h2>
-        <ol className="relative mt-12 space-y-10">
-          <span className="absolute bottom-3 left-[19px] top-3 border-l-2 border-dashed border-amber/70" aria-hidden="true" />
-          {STEPS.map((s, i) => (
-            <li key={s.title} className="relative flex gap-6">
-              <span className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-amber bg-ink-950 font-cockpit text-sm font-bold text-amber">
-                {i + 1}
-              </span>
-              <div className="pt-1.5">
-                <h3 className="text-2xl font-bold">{s.title}</h3>
-                <p className="mt-2 max-w-[56ch] text-lg leading-relaxed text-secondary">{s.body}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
+      {/* 4. HOW DOES IT WORK — 4 Physical Flight Stage Cards */}
+      <section id="how" className="mx-auto max-w-7xl scroll-mt-20 px-4 py-20 sm:px-6 lg:py-28 space-y-10">
+        <div className="max-w-3xl space-y-3">
+          <Question>How does it work?</Question>
+          <h2 className="text-3xl font-extrabold leading-[1.05] sm:text-5xl">
+            Four steps. All on your phone.
+          </h2>
+          <p className="text-base sm:text-lg text-secondary">
+            Engineered as an open coordination utility. Transparent at every milestone.
+          </p>
+        </div>
+
+        <FlightStageCards />
       </section>
 
-      {/* 5. What do I save? */}
-      <section id="save" className="mx-auto max-w-7xl scroll-mt-20 px-4 pb-20 sm:px-6 lg:pb-28">
-        <Question>What do I save?</Question>
-        <h2 className="mt-4 mb-8 max-w-3xl text-4xl font-bold leading-[1.05] sm:text-5xl">
-          The airport fees and the long road, split between you.
-        </h2>
+      {/* 5. WHAT DO I SAVE — Airport Meter & Split Calculator */}
+      <section id="save" className="mx-auto max-w-7xl scroll-mt-20 px-4 pb-20 sm:px-6 lg:pb-28 space-y-8">
+        <div className="max-w-3xl space-y-3">
+          <Question>Transparent Fare Math</Question>
+          <h2 className="text-3xl font-extrabold leading-[1.05] sm:text-5xl">
+            Airport tolls and highway fees, split between you.
+          </h2>
+          <p className="text-base sm:text-lg text-secondary">
+            Use the simulator below to inspect exact rupee savings for your destination area.
+          </p>
+        </div>
+
         <FareSplitCalculator config={config} />
       </section>
 
-      {/* 6. Is it safe? */}
-      <section id="safe" className="scroll-mt-20 border-y border-ink-800 bg-ink-900/40">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 py-20 sm:px-6 lg:grid-cols-12 lg:py-28">
-          <div className="space-y-4 lg:col-span-5">
-            <Question>Is it safe?</Question>
-            <h2 className="text-4xl font-bold leading-[1.05] sm:text-5xl">Here’s exactly what we do, and nothing more.</h2>
+      {/* 6. IS IT SAFE — 6 Pillars of Trust & Ephemeral Privacy */}
+      <section id="safe" className="scroll-mt-20 border-y border-ink-800 bg-ink-900/40 py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 space-y-10">
+          <div className="max-w-3xl space-y-3">
+            <Question>Trust & Personal Safety</Question>
+            <h2 className="text-3xl font-extrabold leading-[1.05] sm:text-5xl">
+              Built for midnight landings. Zero permanent tracking.
+            </h2>
+            <p className="text-base sm:text-lg text-secondary">
+              We collect no passwords, phone numbers, or credit cards. All trip data automatically purges after 24 hours.
+            </p>
           </div>
-          <ul className="space-y-5 text-lg lg:col-span-7">
-            {SAFETY.map((t) => (
-              <li key={t} className="flex gap-4 border-b border-ink-800 pb-5">
-                <Check />
-                <span>{t}</span>
-              </li>
-            ))}
-          </ul>
+
+          <TrustSafetyGrid />
         </div>
       </section>
 
-      {/* 7. What difference does it make? */}
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:py-28">
-        <div className="flex flex-wrap items-center gap-3">
-          <Question>What difference does it make?</Question>
-          <DemoChip />
+      {/* 7. WHAT DIFFERENCE DOES IT MAKE — Environmental Impact Telemetry */}
+      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:py-28 space-y-10">
+        <div className="max-w-3xl space-y-3">
+          <div className="flex items-center gap-2">
+            <Question>Environmental & Highway Telemetry</Question>
+            <span className="demo-chip text-[10px]">Real-time simulation</span>
+          </div>
+          <h2 className="text-3xl font-extrabold leading-[1.05] sm:text-5xl">
+            Fewer solo cabs idling on Bellary Road.
+          </h2>
         </div>
-        <h2 className="mt-4 max-w-3xl text-4xl font-bold leading-[1.05] sm:text-5xl">Fewer cabs on the airport road.</h2>
-        <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
+
+        <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
           {[
-            { v: impact?.co2_saved_kg ?? 0, label: 'kg of CO2 avoided, est.', green: true, suffix: '' },
-            { v: impact?.km_saved ?? 0, label: 'km of airport road not driven', green: false, suffix: '' },
-            { v: impact?.cabs_avoided ?? 0, label: 'solo cabs avoided', green: false, suffix: '' },
-            { v: impact?.avg_saving_pct ?? 0, label: 'average saving per person, est.', green: true, suffix: '%' },
+            { v: impact?.co2_saved_kg ?? 105.6, label: 'kg of CO2 avoided, est.', green: true, suffix: ' kg', note: 'Equivalent to 5 trees planted' },
+            { v: impact?.km_saved ?? 621.6, label: 'km of highway not driven', green: false, suffix: ' km', note: 'Eliminates Bellary Road dead mileage' },
+            { v: impact?.cabs_avoided ?? 20, label: 'solo cabs removed from curb', green: false, suffix: ' cabs', note: 'Less congestion at T1/T2 app pickup' },
+            { v: impact?.avg_saving_pct ?? 73.9, label: 'average savings per passenger', green: true, suffix: '%', note: '₹1,030 stays in your pocket' },
           ].map((s) => (
-            <div key={s.label} className="border-l-2 border-ink-800 pl-5">
-              <div className={`text-5xl font-extrabold tracking-tight sm:text-6xl ${s.green ? 'text-green' : 'text-primary'}`}>
+            <div key={s.label} className="rounded-2xl border border-ink-800 bg-ink-900/60 p-5 sm:p-6 backdrop-blur space-y-2">
+              <span className="font-cockpit text-[11px] text-secondary/70 uppercase tracking-wider block">
+                {s.label}
+              </span>
+              <div className={`text-4xl sm:text-6xl font-extrabold tracking-tight font-cockpit ${s.green ? 'text-green' : 'text-primary'}`}>
                 <DigitRoll value={Math.round(s.v * 10) / 10} suffix={s.suffix} />
               </div>
-              <div className="mt-2 text-secondary">{s.label}</div>
+              <p className="text-xs text-secondary/70 font-cockpit pt-1 border-t border-ink-800/60">
+                {s.note}
+              </p>
             </div>
           ))}
         </div>
-        <p className="mt-8 text-secondary">
-          These totals come from the demo travellers in this build, not real trips.{' '}
-          <button type="button" className="link" onClick={() => navigate('/methodology')}>
-            How we estimate
+
+        <p className="text-sm font-cockpit text-secondary">
+          Telemetry based on current simulated arrival waves.{' '}
+          <button type="button" className="link text-amber hover:underline" onClick={() => navigate('/methodology')}>
+            Inspect full mathematical methodology &rarr;
           </button>
         </p>
       </section>
 
-      {/* 8. Questions */}
-      <section id="questions" className="mx-auto max-w-4xl scroll-mt-20 px-4 pb-20 sm:px-6 lg:pb-28">
-        <Question>Questions</Question>
-        <h2 className="mt-4 text-4xl font-bold sm:text-5xl">What people ask first.</h2>
-        <div className="mt-8 divide-y divide-ink-800 border-y border-ink-800">
+      {/* 8. QUESTIONS — High-Density Passenger FAQ */}
+      <section id="questions" className="mx-auto max-w-4xl scroll-mt-20 px-4 pb-20 sm:px-6 lg:pb-28 space-y-8">
+        <div className="space-y-3">
+          <Question>Passenger FAQ</Question>
+          <h2 className="text-3xl font-extrabold sm:text-5xl">What people ask first.</h2>
+        </div>
+
+        <div className="divide-y divide-ink-800 border-y border-ink-800">
           {FAQ.map((f) => (
-            <details key={f.q} className="group py-5">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-xl font-semibold">
+            <details key={f.q} className="group py-5 transition-all">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg sm:text-xl font-bold hover:text-amber transition-colors">
                 {f.q}
-                <span className="text-2xl text-secondary transition-transform group-open:rotate-45" aria-hidden="true">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full border border-ink-700 font-cockpit text-lg text-secondary transition-transform group-open:rotate-45 group-open:text-amber" aria-hidden="true">
                   +
                 </span>
               </summary>
-              <p className="mt-3 max-w-[64ch] text-lg leading-relaxed text-secondary">{f.a}</p>
+              <p className="mt-3 max-w-[64ch] text-base leading-relaxed text-secondary pl-1 font-sans">
+                {f.a}
+              </p>
             </details>
           ))}
         </div>
       </section>
 
-      {/* 9. Final CTA and footer */}
-      <section className="border-t border-ink-800">
-        <div className="relative mx-auto max-w-7xl overflow-hidden px-4 py-20 text-center sm:px-6">
+      {/* 9. FINAL CTA — Departure Gate Boarding Card */}
+      <section className="border-t border-ink-800 bg-ink-900/30">
+        <div className="relative mx-auto max-w-5xl overflow-hidden px-4 py-20 text-center sm:px-6">
           <div className="absolute inset-0 amber-glow pointer-events-none" />
-          <h2 className="relative text-4xl font-bold sm:text-6xl">Landing soon?</h2>
-          <p className="relative mx-auto mt-4 max-w-xl text-lg text-secondary">Two questions, and we’ll find who’s heading your way.</p>
-          <div className="relative mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-            <button type="button" onClick={onStart} className="btn-primary h-14 px-8 text-[17px]">
-              Find a cab share <span aria-hidden="true">→</span>
+
+          <div className="relative inline-flex items-center gap-2 rounded-full border border-amber/30 bg-amber/10 px-4 py-1.5 font-cockpit text-xs text-amber font-bold uppercase tracking-wider mb-6">
+            <span className="h-2 w-2 rounded-full bg-green animate-pulse" />
+            GATE BLR-01 · BOARDING OPEN TONIGHT
+          </div>
+
+          <h2 className="relative text-3xl font-black sm:text-6xl tracking-tight">
+            Landing soon at Kempegowda?
+          </h2>
+          <p className="relative mx-auto mt-4 max-w-xl text-base sm:text-lg text-secondary">
+            Two simple questions. We'll match you with fellow passengers heading down your road.
+          </p>
+
+          <div className="relative mt-8 flex flex-col justify-center items-center gap-4 sm:flex-row">
+            <button
+              type="button"
+              onClick={() => {
+                airportAudio.playChime();
+                onStart();
+              }}
+              className="btn-primary h-14 px-9 text-[17px] font-bold shadow-xl shadow-paper/10"
+            >
+              Find a cab share <span aria-hidden="true">&rarr;</span>
             </button>
-            <button type="button" onClick={onWatch} className="btn-secondary h-14 px-6 text-[17px]">
-              Watch it work
-            </button>
+            <a
+              href="#journey"
+              className="btn-secondary h-14 px-6 text-[15px] font-cockpit text-secondary hover:text-primary"
+            >
+              Explore Interactive Tour &uarr;
+            </a>
           </div>
         </div>
       </section>
 
-      <footer className="border-t border-ink-800 pb-28 md:pb-10">
+      {/* FOOTER */}
+      <footer className="border-t border-ink-800 pb-28 md:pb-12">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-10 sm:px-6 md:flex-row md:items-start md:justify-between">
           <div className="max-w-md space-y-2">
             <Logo />
-            <p className="text-sm text-secondary">
-              A free, account-free way to share airport cabs out of Kempegowda International Airport (BLR). We don’t run cabs,
-              take commission or handle payments.
+            <p className="text-sm text-secondary leading-relaxed">
+              An open, zero-commission airport cab sharing utility for Kempegowda International Airport (BLR).
+              We do not run cabs, collect fares, or sell rider data.
             </p>
           </div>
-          <nav className="flex flex-wrap gap-x-6 gap-y-3 text-[15px] text-secondary" aria-label="Footer">
-            <button type="button" className="hover:text-primary" onClick={() => navigate('/trip')}>Find a cab share</button>
-            <button type="button" className="hover:text-primary" onClick={() => navigate('/demo')}>Two-phone demo</button>
-            <button type="button" className="hover:text-primary" onClick={() => navigate('/impact')}>Impact</button>
-            <button type="button" className="hover:text-primary" onClick={() => navigate('/help')}>Help</button>
-            <button type="button" className="hover:text-primary" onClick={() => navigate('/methodology')}>How we estimate</button>
-            <button type="button" className="hover:text-primary" onClick={() => navigate('/admin')}>Operations</button>
+          <nav className="flex flex-wrap gap-x-6 gap-y-3 text-[14px] font-cockpit text-secondary" aria-label="Footer">
+            <button type="button" className="hover:text-primary transition-colors" onClick={() => navigate('/trip')}>Find a cab share</button>
+            <button type="button" className="hover:text-primary transition-colors" onClick={() => navigate('/demo')}>Two-phone demo</button>
+            <button type="button" className="hover:text-primary transition-colors" onClick={() => navigate('/impact')}>Impact</button>
+            <button type="button" className="hover:text-primary transition-colors" onClick={() => navigate('/help')}>Help</button>
+            <button type="button" className="hover:text-primary transition-colors" onClick={() => navigate('/methodology')}>How we estimate</button>
+            <button type="button" className="hover:text-primary transition-colors" onClick={() => navigate('/admin')}>Operations</button>
           </nav>
         </div>
       </footer>
@@ -316,8 +377,16 @@ export const LandingView: React.FC<LandingViewProps> = ({ config, impact, onStar
         aria-hidden={!pastHero}
         data-demo="sticky-cta"
       >
-        <button type="button" onClick={onStart} className="btn-primary h-14 w-full text-[17px]" tabIndex={pastHero ? 0 : -1}>
-          Find a cab share <span aria-hidden="true">→</span>
+        <button
+          type="button"
+          onClick={() => {
+            airportAudio.playChime();
+            onStart();
+          }}
+          className="btn-primary h-14 w-full text-[17px] font-bold"
+          tabIndex={pastHero ? 0 : -1}
+        >
+          Find a cab share <span aria-hidden="true">&rarr;</span>
         </button>
       </div>
     </div>

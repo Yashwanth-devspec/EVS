@@ -125,3 +125,4 @@ class AirportAudioService {
 }
 
 export const chime = new AirportAudioService();
+export const airportAudio = chime;
