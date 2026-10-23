@@ -1,0 +1,442 @@
+@import '@fontsource-variable/bricolage-grotesque';
+@import '@fontsource/b612-mono';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink-950: #07090A;
+  --ink-900: #0C0F10;
+  --ink-800: #14181A;
+  --ink-700: #1E2426;
+
+  --paper: #F3EFE6;
+  --paper-dim: #E6E0D2;
+  --on-paper-ink: #0E1210;
+
+  --amber: #FFB020;
+  --green: #3DDC97;
+  --red: #FF5C4D;
+
+  --green-ink: #0B7A4B;
+  --amber-ink: #8A5A00;
+
+  --text-primary: #ECEFEA;
+  --text-secondary: #A7B0AB;
+}
+
+/* Background canvas: Ink-950 with static 3% noise overlay */
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #07090A;
+  color: #ECEFEA;
+  font-family: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  max-width: 100vw;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Cockpit data typography */
+.font-cockpit {
+  font-family: 'B612 Mono', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Primary Button: Cream pill, ink text, 52px high, trailing arrow */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 52px;
+  padding: 0 28px;
+  border-radius: 9999px;
+  background-color: #F3EFE6;
+  color: #07090A;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 140ms cubic-bezier(0.16, 1, 0.3, 1), opacity 140ms ease;
+  border: none;
+}
+.btn-primary:hover {
+  opacity: 0.95;
+}
+.btn-primary:active {
+  transform: scale(0.97);
+}
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+.chip:focus-visible,
+.btn-quiet:focus-visible,
+.link:focus-visible {
+  outline: 2px solid #FFB020;
+  outline-offset: 2px;
+}
+
+/* Secondary Button: Text link with underline on hover */
+.btn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #ECEFEA;
+  font-weight: 500;
+  font-size: 15px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px 4px;
+  transition: color 140ms ease;
+}
+.btn-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.btn-link:active {
+  transform: scale(0.98);
+}
+
+/* Ticket Physicality: Semicircular side notches */
+.ticket-surface {
+  background-color: #F3EFE6;
+  color: #0E1210;
+  position: relative;
+  border-radius: 12px;
+}
+
+/* Perforation tear-line */
+.perforation-divider {
+  border: none;
+  border-top: 2px dashed #0E1210;
+  opacity: 0.25;
+  margin: 0;
+  width: 100%;
+}
+
+.perforation-vertical {
+  border: none;
+  border-left: 2px dashed #0E1210;
+  opacity: 0.25;
+  height: 100%;
+}
+
+/* Runway Dashes divider */
+.runway-line {
+  border: none;
+  border-top: 2px dashed #FFB020;
+  opacity: 0.7;
+  width: 100%;
+}
+
+/* Subtle amber city glow */
+.amber-glow {
+  background: radial-gradient(circle at 50% 30%, rgba(255, 176, 32, 0.10) 0%, transparent 65%);
+}
+
+/* Hide scrollbars for clean navigation rows */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ---------------------------------------------------------------- shared controls */
+@layer components {
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 min-h-[48px] rounded-full border border-ink-700 bg-ink-900 px-5 font-semibold text-primary transition-colors hover:border-secondary/60 active:scale-[0.98] disabled:opacity-40;
+  }
+  .btn-quiet {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-[15px] font-medium text-primary hover:bg-ink-800 active:scale-[0.98];
+  }
+  .link {
+    @apply font-semibold text-primary underline decoration-amber/70 decoration-2 underline-offset-4 hover:decoration-amber;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 min-h-[44px] rounded-full border border-ink-700 bg-ink-900 px-4 text-[15px] font-medium text-primary transition-colors hover:border-secondary/60 active:scale-[0.97];
+  }
+  .chip-on {
+    @apply border-paper bg-paper text-ink-950 hover:border-paper;
+  }
+  .chip-ghost {
+    @apply border-dashed bg-transparent text-secondary;
+  }
+  .field {
+    @apply block w-full min-h-[52px] rounded-2xl border border-ink-700 bg-ink-900 px-4 text-primary placeholder:text-secondary/70 focus:border-amber focus:outline-none focus:ring-2 focus:ring-amber/30;
+  }
+  .step-btn {
+    @apply flex h-12 w-12 items-center justify-center rounded-full border border-ink-700 bg-ink-950 text-2xl text-primary active:scale-[0.95] disabled:opacity-30;
+  }
+  .toggle {
+    @apply relative mt-1 h-7 w-12 shrink-0 cursor-pointer appearance-none rounded-full bg-ink-700 transition-colors checked:bg-green;
+  }
+  .toggle::after {
+    content: '';
+    @apply absolute left-1 top-1 h-5 w-5 rounded-full bg-paper transition-transform;
+  }
+  .toggle:checked::after {
+    transform: translateX(20px);
+  }
+  .toggle:focus-visible {
+    outline: 2px solid #FFB020;
+    outline-offset: 2px;
+  }
+  .demo-chip {
+    @apply inline-flex items-center whitespace-nowrap rounded-full border border-amber/50 bg-amber/10 px-2.5 py-0.5 text-xs font-semibold text-amber;
+  }
+  .demo-tag {
+    @apply inline-flex items-center whitespace-nowrap rounded-full border border-ink-700 px-2 py-0.5 text-[11px] font-medium text-secondary;
+  }
+  .badge {
+    @apply inline-flex items-center gap-1 whitespace-nowrap rounded-full border border-ink-700 px-2.5 py-1 text-xs font-semibold text-secondary;
+  }
+  .badge-green {
+    @apply border-green/40 bg-green/10 text-green;
+  }
+  .badge-red {
+    @apply border-red/40 bg-red/10 text-red;
+  }
+  .badge-amber {
+    @apply border-amber/40 bg-amber/10 text-amber;
+  }
+  .avatar {
+    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-ink-700 bg-ink-800 font-bold text-primary;
+  }
+  .avatar-you {
+    @apply border-amber bg-amber text-ink-950;
+  }
+  .stop-num {
+    @apply flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-green font-cockpit text-xs font-bold text-green;
+  }
+  .stat-tile {
+    @apply flex flex-col gap-1 rounded-2xl border border-ink-800 bg-ink-900 p-4;
+  }
+  .stat-num {
+    @apply text-3xl font-extrabold tabular-nums text-primary;
+  }
+  .stat-label {
+    @apply text-sm text-secondary;
+  }
+  .skeleton {
+    @apply bg-ink-800;
+    background-image: linear-gradient(90deg, #14181A 0%, #1E2426 50%, #14181A 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s linear infinite;
+  }
+  .ticket-card {
+    @apply rounded-2xl bg-paper text-on-paper shadow-ticket;
+    -webkit-mask: radial-gradient(circle 12px at 0 50%, transparent 98%, #000) left / 51% 100% no-repeat,
+      radial-gradient(circle 12px at 100% 50%, transparent 98%, #000) right / 51% 100% no-repeat;
+    mask: radial-gradient(circle 12px at 0 50%, transparent 98%, #000) left / 51% 100% no-repeat,
+      radial-gradient(circle 12px at 100% 50%, transparent 98%, #000) right / 51% 100% no-repeat;
+  }
+  .pulse-dot {
+    @apply inline-block h-2.5 w-2.5 shrink-0 rounded-full bg-amber;
+    animation: pulse-dot 1.4s ease-in-out infinite;
+  }
+  .ap-btn {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-ink-700 px-3 py-1.5 text-xs font-semibold text-primary;
+  }
+  .ap-btn-main {
+    @apply border-paper bg-paper text-ink-950;
+  }
+}
+
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+/* Static grain */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------------------------------------------------------------- map */
+.eco-map {
+  background: #0B0F10;
+  font-family: 'Bricolage Grotesque Variable', system-ui, sans-serif;
+}
+/* OSM's light tiles, turned into a night map that sits under the ink UI */
+.eco-map .leaflet-tile-pane {
+  filter: invert(1) hue-rotate(180deg) brightness(0.82) contrast(0.92) saturate(0.35);
+}
+.eco-map .leaflet-control-attribution {
+  background: rgba(7, 9, 10, 0.7);
+  color: #A7B0AB;
+  font-size: 10px;
+}
+.eco-marker {
+  background: none;
+  border: none;
+}
+.eco-airport {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.eco-airport span {
+  display: flex;
+  height: 34px;
+  width: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: #F3EFE6;
+  box-shadow: 0 0 0 3px #FFB020, 0 6px 18px rgba(0, 0, 0, 0.5);
+}
+.eco-airport b,
+.eco-dest b,
+.eco-stop b,
+.eco-pickup b {
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ECEFEA;
+  text-shadow: 0 0 3px #07090A, 0 0 6px #07090A;
+}
+.eco-dest {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.eco-dest i {
+  display: block;
+  height: 18px;
+  width: 18px;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background: #FFB020;
+  border: 3px solid #07090A;
+}
+.eco-stop,
+.eco-pickup {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.eco-stop i,
+.eco-pickup i {
+  display: flex;
+  height: 26px;
+  width: 26px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: #3DDC97;
+  border: 2px solid #07090A;
+  color: #07090A;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 12px;
+}
+.eco-stop.is-you i {
+  background: #FFB020;
+}
+.eco-pickup i {
+  border-radius: 8px;
+  background: #FFB020;
+}
+.eco-other {
+  height: 10px;
+  width: 10px;
+  border-radius: 9999px;
+  background: #3DDC97;
+  opacity: 0.85;
+  box-shadow: 0 0 0 3px rgba(61, 220, 151, 0.2);
+  animation: pop-in 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.eco-radar {
+  position: relative;
+  height: 10px;
+  width: 10px;
+}
+.eco-radar span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 360px;
+  width: 360px;
+  margin: -180px 0 0 -180px;
+  border-radius: 9999px;
+  border: 2px solid rgba(255, 176, 32, 0.55);
+  background: radial-gradient(circle, rgba(255, 176, 32, 0.08), transparent 60%);
+  transform: scale(0.05);
+  opacity: 0;
+  animation: radar 2.4s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+}
+.eco-radar span:nth-child(2) { animation-delay: 0.8s; }
+.eco-radar span:nth-child(3) { animation-delay: 1.6s; }
+@keyframes radar {
+  0% { transform: scale(0.05); opacity: 0.9; }
+  100% { transform: scale(1); opacity: 0; }
+}
+@keyframes pop-in {
+  from { transform: scale(0.4); opacity: 0; }
+  to { transform: scale(1); opacity: 0.85; }
+}
+
+/* ---------------------------------------------------------------- autopilot */
+.autopilot-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2000;
+  pointer-events: none;
+  margin: -3px 0 0 -4px;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6));
+  transition: opacity 200ms ease;
+}
+.autopilot-ripple {
+  position: fixed;
+  z-index: 1999;
+  pointer-events: none;
+  height: 44px;
+  width: 44px;
+  margin: -22px 0 0 -22px;
+  border-radius: 9999px;
+  border: 2px solid #FFB020;
+  animation: ripple 520ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes ripple {
+  from { transform: scale(0.3); opacity: 1; }
+  to { transform: scale(1.4); opacity: 0; }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .eco-radar span {
+    animation: none;
+    opacity: 0.6;
+  }
+  .eco-radar span:nth-child(1) { transform: scale(0.35); }
+  .eco-radar span:nth-child(2) { transform: scale(0.65); }
+  .eco-radar span:nth-child(3) { transform: scale(0.95); opacity: 0.3; }
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

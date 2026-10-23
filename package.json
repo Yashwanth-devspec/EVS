@@ -1,0 +1,46 @@
+{
+  "name": "ecoride-share",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k -p \"[{name}]\" -n \"backend,frontend\" -c \"cyan,magenta\" \"./venv/bin/python -m uvicorn backend.main:app --host 127.0.0.1 --port 8000\" \"vite\"",
+    "dev:backend": "./venv/bin/python -m uvicorn backend.main:app --reload --host 127.0.0.1 --port 8000",
+    "dev:frontend": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test:backend": "PYTHONPATH=. ./venv/bin/pytest tests/ -v",
+    "test:frontend": "vitest run",
+    "test:e2e": "playwright test",
+    "test": "npm run test:backend && npm run test:frontend && npm run test:e2e"
+  },
+  "dependencies": {
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "@fontsource/b612-mono": "^5.3.0",
+    "@fontsource/geist-mono": "^5.0.3",
+    "@fontsource/geist-sans": "^5.0.3",
+    "@tanstack/react-query": "^5.28.0",
+    "leaflet": "^1.9.4",
+    "lucide-react": "^0.359.0",
+    "motion": "^12.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-leaflet": "^4.2.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "@types/leaflet": "^1.9.8",
+    "@types/node": "^20.11.30",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.18",
+    "concurrently": "^8.2.2",
+    "happy-dom": "^21.0.4",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.4.2",
+    "vite": "^5.1.6",
+    "vitest": "^1.4.0"
+  }
+}
