@@ -91,7 +91,7 @@ export const FlightStageCards: React.FC = () => {
           </div>
 
           <div className="pt-4 space-y-2">
-            <span className="font-cockpit text-[11px] font-bold tracking-wider text-secondary uppercase block">
+            <span className="font-cockpit text-[11px] font-bold tracking-wider text-secondary block">
               {s.tag}
             </span>
             <h3 className="text-xl font-bold text-primary tracking-tight">

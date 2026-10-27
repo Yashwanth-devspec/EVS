@@ -81,7 +81,7 @@ export const InteractiveJourneyDeck: React.FC = () => {
         <div>
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-green animate-pulse" />
-            <span className="font-cockpit text-xs font-semibold text-green tracking-wider uppercase">
+            <span className="font-cockpit text-xs font-semibold text-green tracking-wider">
               Interactive Flight-to-Cab Cockpit
             </span>
             <span className="text-ink-700">|</span>
@@ -556,7 +556,7 @@ export const InteractiveJourneyDeck: React.FC = () => {
 
                 {/* Big Verification Code */}
                 <div className="my-5 text-center">
-                  <span className="block text-[11px] font-cockpit text-on-paper/60 uppercase tracking-widest">
+                  <span className="block text-[11px] font-cockpit text-on-paper/60 tracking-widest">
                     HANDSHAKE CURB CODE
                   </span>
                   <div className="font-cockpit text-6xl font-extrabold tracking-widest text-on-paper my-1">
@@ -577,7 +577,7 @@ export const InteractiveJourneyDeck: React.FC = () => {
                 {/* Wayfinding details */}
                 <div className="grid grid-cols-2 gap-3 font-cockpit text-xs text-on-paper pt-1">
                   <div>
-                    <span className="text-on-paper/60 block text-[10px]">PICKUP PILLAR</span>
+                    <span className="text-on-paper/60 block text-[10px]">PICKUP SPOT</span>
                     <span className="font-extrabold text-sm">Lane 2, Pillar 4</span>
                   </div>
                   <div>

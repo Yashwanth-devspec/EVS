@@ -26,12 +26,12 @@ const inr = (n: number) => `Rs ${new Intl.NumberFormat('en-IN').format(round10(n
 
 /** A plain question above each section's answer. Sentence case. */
 const Question: React.FC<{ children: React.ReactNode; id?: string }> = ({ children, id }) => (
-  <p id={id} className="text-sm font-cockpit font-bold uppercase tracking-wider text-amber">
+  <p id={id} className="text-sm font-cockpit text-amber">
     {children}
   </p>
 );
 
-export const LandingView: React.FC<LandingViewProps> = ({ config, impact, onStart }) => {
+export const LandingView: React.FC<LandingViewProps> = ({ config, impact, onStart, onWatch }) => {
   const heroRef = useRef<HTMLElement>(null);
   const [pastHero, setPastHero] = useState(false);
 
@@ -123,19 +123,21 @@ export const LandingView: React.FC<LandingViewProps> = ({ config, impact, onStar
               >
                 Find a cab share <span aria-hidden="true">&rarr;</span>
               </button>
-              <a
-                href="#journey"
+              <button
+                type="button"
+                onClick={onWatch}
+                data-demo="watch-demo"
                 className="btn-secondary h-14 px-6 text-[16px] inline-flex items-center justify-center gap-2 font-cockpit text-secondary hover:text-primary"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="12" cy="12" r="10" />
                   <polygon points="10 8 16 12 10 16 10 8" />
                 </svg>
-                Explore Live Journey (4 Steps)
-              </a>
+                Watch it work
+              </button>
             </div>
             <p className="text-[14px] font-cockpit text-secondary">
-              No account. 0% commission. We don’t run the cabs or touch your money.
+              No account. We don’t run the cabs or touch your money.
             </p>
           </div>
 
@@ -182,7 +184,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ config, impact, onStar
       <section id="journey" className="scroll-mt-20 border-y border-ink-800 bg-ink-900/40 py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 space-y-6">
           <div className="max-w-3xl space-y-3">
-            <Question>Live Interactive Journey</Question>
+            <Question>What does it look like?</Question>
             <h2 className="text-3xl font-extrabold leading-[1.05] sm:text-5xl">
               From landing gate to your door in 4 simple beats.
             </h2>
@@ -216,7 +218,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ config, impact, onStar
       {/* 5. WHAT DO I SAVE — Airport Meter & Split Calculator */}
       <section id="save" className="mx-auto max-w-7xl scroll-mt-20 px-4 pb-20 sm:px-6 lg:pb-28 space-y-8">
         <div className="max-w-3xl space-y-3">
-          <Question>Transparent Fare Math</Question>
+          <Question>What do I save?</Question>
           <h2 className="text-3xl font-extrabold leading-[1.05] sm:text-5xl">
             Airport tolls and highway fees, split between you.
           </h2>
@@ -232,7 +234,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ config, impact, onStar
       <section id="safe" className="scroll-mt-20 border-y border-ink-800 bg-ink-900/40 py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 space-y-10">
           <div className="max-w-3xl space-y-3">
-            <Question>Trust & Personal Safety</Question>
+            <Question>Is it safe?</Question>
             <h2 className="text-3xl font-extrabold leading-[1.05] sm:text-5xl">
               Built for midnight landings. Zero permanent tracking.
             </h2>
@@ -249,7 +251,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ config, impact, onStar
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:py-28 space-y-10">
         <div className="max-w-3xl space-y-3">
           <div className="flex items-center gap-2">
-            <Question>Environmental & Highway Telemetry</Question>
+            <Question>What difference does it make?</Question>
             <span className="demo-chip text-[10px]">Real-time simulation</span>
           </div>
           <h2 className="text-3xl font-extrabold leading-[1.05] sm:text-5xl">
@@ -265,7 +267,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ config, impact, onStar
             { v: impact?.avg_saving_pct ?? 73.9, label: 'average savings per passenger', green: true, suffix: '%', note: '₹1,030 stays in your pocket' },
           ].map((s) => (
             <div key={s.label} className="rounded-2xl border border-ink-800 bg-ink-900/60 p-5 sm:p-6 backdrop-blur space-y-2">
-              <span className="font-cockpit text-[11px] text-secondary/70 uppercase tracking-wider block">
+              <span className="font-cockpit text-[11px] text-secondary/70 tracking-wider block">
                 {s.label}
               </span>
               <div className={`text-4xl sm:text-6xl font-extrabold tracking-tight font-cockpit ${s.green ? 'text-green' : 'text-primary'}`}>
@@ -289,7 +291,7 @@ export const LandingView: React.FC<LandingViewProps> = ({ config, impact, onStar
       {/* 8. QUESTIONS — High-Density Passenger FAQ */}
       <section id="questions" className="mx-auto max-w-4xl scroll-mt-20 px-4 pb-20 sm:px-6 lg:pb-28 space-y-8">
         <div className="space-y-3">
-          <Question>Passenger FAQ</Question>
+          <Question>Questions</Question>
           <h2 className="text-3xl font-extrabold sm:text-5xl">What people ask first.</h2>
         </div>
 
@@ -315,9 +317,9 @@ export const LandingView: React.FC<LandingViewProps> = ({ config, impact, onStar
         <div className="relative mx-auto max-w-5xl overflow-hidden px-4 py-20 text-center sm:px-6">
           <div className="absolute inset-0 amber-glow pointer-events-none" />
 
-          <div className="relative inline-flex items-center gap-2 rounded-full border border-amber/30 bg-amber/10 px-4 py-1.5 font-cockpit text-xs text-amber font-bold uppercase tracking-wider mb-6">
+          <div className="relative inline-flex items-center gap-2 rounded-full border border-amber/30 bg-amber/10 px-4 py-1.5 font-cockpit text-xs text-amber font-bold tracking-wider mb-6">
             <span className="h-2 w-2 rounded-full bg-green animate-pulse" />
-            GATE BLR-01 · BOARDING OPEN TONIGHT
+            Gate BLR-01 · Boarding open tonight
           </div>
 
           <h2 className="relative text-3xl font-black sm:text-6xl tracking-tight">

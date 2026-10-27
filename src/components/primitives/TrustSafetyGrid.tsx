@@ -29,7 +29,7 @@ export const TrustSafetyGrid: React.FC = () => {
       badge: 'PASSENGER PREFERENCE',
       title: 'Women-Only Group Option',
       rule: 'Filter to form ride corridors exclusively with female co-travellers on your arrival wave.',
-      rationale: 'Self-declared option for peace of mind when traveling late at night out of Kempegowda.',
+      rationale: 'Self-declared option for extra comfort when traveling late at night out of Kempegowda.',
     },
     {
       id: '04',
@@ -63,7 +63,7 @@ export const TrustSafetyGrid: React.FC = () => {
         >
           {/* Subtle green indicator */}
           <div className="flex items-center justify-between pb-3 border-b border-ink-800">
-            <span className="font-cockpit text-xs font-bold text-green tracking-wider uppercase flex items-center gap-1.5">
+            <span className="font-cockpit text-xs font-bold text-green tracking-wider flex items-center gap-1.5">
               <span className="h-1.5 w-1.5 rounded-full bg-green" />
               {item.badge}
             </span>
