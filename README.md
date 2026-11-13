@@ -127,34 +127,52 @@ The interface is inspired by Swiss airport wayfinding crossed with an airline bo
 - **Python**: v3.10 or higher & `python3-venv`
 - **Git**
 
-### 1. Clone the repository
+### Option A: One-Command Automated Start (Recommended)
+Clone the repo and run the automated bootstrap script:
+```bash
+git clone https://github.com/Yashwanth-devspec/EVS.git
+cd EVS
+
+# On macOS / Linux:
+./start.sh
+
+# On Windows:
+start.bat
+```
+This automatically configures the Python virtual environment, installs dependencies, and launches both frontend and backend servers.
+
+---
+
+### Option B: Manual Step-by-Step Setup
+
+#### 1. Clone the repository
 ```bash
 git clone https://github.com/Yashwanth-devspec/EVS.git
 cd EVS
 ```
 
-### 2. Set up the Python virtual environment
+#### 2. Set up the Python virtual environment
 ```bash
 # Create and activate virtual environment
 python3 -m venv venv
-source venv/bin/activate
+source venv/bin/activate       # On Windows: venv\Scripts\activate
 
 # Install backend dependencies
 pip install -r requirements.txt
 ```
 
-### 3. Install Node.js frontend dependencies
+#### 3. Install Node.js frontend dependencies
 ```bash
 npm install
 ```
 
-### 4. Configure environment (optional)
+#### 4. Configure environment (optional)
 ```bash
 cp .env.example .env
 # Edit .env if you wish to adjust ADMIN_PASSWORD, offline mode, or custom port
 ```
 
-### 5. Start development servers
+#### 5. Start development servers
 Run both the FastAPI backend (`:8000`) and the Vite React frontend (`:5173`) with one command:
 ```bash
 npm run dev
