@@ -11,6 +11,51 @@
 * **No Fleet Dispatch**: Groups form on the platform. One member books a normal cab in any consumer taxi app using our pre-calculated stop sequence, and co-passengers settle their proportional share.
 * **Prior Art & Existing Services**: Acknowledges and honors pioneering services such as **Quick Ride** and **GoPool**, while differentiating through an open, zero-fee, zero-account coordination architecture.
 
+### System Architecture
+
+```mermaid
+graph TD
+    subgraph Client["Frontend Client (React 18 + Vite + Tailwind CSS)"]
+        Landing["Landing Page & Convergence Map"]
+        CheckIn["Check-In & Boarding Pass"]
+        Pool["Wait-vs-Save Timeline & CabSeats"]
+        Inbox["Proposal Inbox (Radial Timers)"]
+        TripState["Active Trip Screen & Settle Chips"]
+    end
+
+    subgraph API["FastAPI Application Layer (Python 3.10+)"]
+        Main["FastAPI Router & CORS"]
+        TripSM["Trip State Machine (trip.py)"]
+        MatchEngine["Matching & Fare Proration (matching.py)"]
+        GeoModule["Corridor Routing & Equirectangular Projection (geo.py)"]
+        ClockSync["Simulation Clock & Time Travel (clock.py)"]
+    end
+
+    subgraph DataPrivacy["Storage & Ephemeral Privacy Layer"]
+        SQLite[("SQLite DB (ecoride.db)")]
+        Anonymizer["Query-Stripped Logs & 24h Auto-Purge"]
+        DeepLinks["1-Tap Direct Uber Deep-Links & UPI Settlement"]
+    end
+
+    Client <-->|REST API / JSON| API
+    API <--> SQLite
+    API --> Anonymizer
+    API --> DeepLinks
+```
+
+### User Journey & Matching Flowchart
+
+```mermaid
+flowchart LR
+    A["Flight Lands at BLR"] --> B["Issue Ephemeral Boarding Pass"]
+    B --> C["Select Drop Zone & Buffer"]
+    C --> D["Matching Engine Groups Corridor"]
+    D --> E["Time-Locked Proposal Sent"]
+    E --> F["Ride Confirmed & Curb Code Issued"]
+    F --> G["1-Tap Cab Dispatch & Proportional UPI Split"]
+```
+
+
 ---
 
 ## 2. Art Direction: *"Arrival Hall at Night"*

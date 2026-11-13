@@ -30,6 +30,9 @@ playwright-report/
 blob-report/
 coverage/
 .nyc_output/
+qa/*.png
+qa/*.jpg
+qa/*.jpeg
 
 # Databases & local state
 *.db
