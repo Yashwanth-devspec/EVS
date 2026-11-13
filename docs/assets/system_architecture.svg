@@ -1,0 +1,196 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 780" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #07090A; }
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace; font-size: 26px; font-weight: 700; fill: #F3EFE6; }
+      .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #8E989E; }
+      .badge-arch { font-family: monospace; font-size: 11px; fill: #FFB020; font-weight: 600; }
+      .tier-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 16px; font-weight: 700; fill: #F3EFE6; }
+      .tier-sub { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; fill: #7E898F; }
+      .card-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; font-weight: 600; fill: #F3EFE6; }
+      .card-desc { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; fill: #9BA4A8; }
+      .card-code { font-family: monospace; font-size: 10px; fill: #FFB020; }
+      .green-code { font-family: monospace; font-size: 10px; fill: #3DDC97; }
+      .blue-code { font-family: monospace; font-size: 10px; fill: #5BB2FF; }
+      .conn-label { font-family: monospace; font-size: 11px; fill: #8E989E; }
+    </style>
+    
+    <linearGradient id="tierGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#12171A" />
+      <stop offset="100%" stop-color="#0B0E10" />
+    </linearGradient>
+
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+
+    <marker id="arrowAmber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#FFB020" />
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#3DDC97" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="780" class="bg" rx="12" />
+
+  <!-- Header Banner -->
+  <rect x="40" y="32" width="1120" height="72" rx="8" fill="#0E1317" stroke="#1D242B" stroke-width="1" />
+  <circle cx="70" cy="68" r="16" fill="#1A232A" stroke="#FFB020" stroke-width="1.5" />
+  <text x="64" y="73" fill="#FFB020" font-family="monospace" font-size="14" font-weight="bold">EC</text>
+  <text x="100" y="60" class="title">EcoRide Share &mdash; System Architecture</text>
+  <text x="100" y="82" class="subtitle">Airport Cab Pooling &amp; Coordination Architecture &bull; Kempegowda International Airport (BLR)</text>
+  <rect x="1010" y="55" width="130" height="26" rx="4" fill="#1C1808" stroke="#FFB020" stroke-width="1"/>
+  <text x="1025" y="72" class="badge-arch">&bull; ZERO COMMISSION</text>
+
+  <!-- ================= TIER 1: FRONTEND CLIENT ================= -->
+  <g transform="translate(40, 130)" filter="url(#shadow)">
+    <rect width="345" height="520" rx="10" fill="url(#tierGrad1)" stroke="#1F2830" stroke-width="1.5" />
+    <rect x="16" y="16" width="313" height="42" rx="6" fill="#151C22" stroke="#25313A" stroke-width="1" />
+    <circle cx="34" cy="37" r="6" fill="#5BB2FF" />
+    <text x="48" y="36" class="tier-title">Client Application</text>
+    <text x="48" y="49" class="tier-sub">React 18 &bull; Vite &bull; Tailwind CSS</text>
+
+    <!-- Component 1 -->
+    <rect x="16" y="72" width="313" height="74" rx="6" fill="#0D1114" stroke="#1C242C" stroke-width="1"/>
+    <text x="28" y="93" class="card-title">Convergence Landing Cockpit</text>
+    <text x="28" y="111" class="card-desc">16-zone BLR projection, solo-to-pool simulation,</text>
+    <text x="28" y="127" class="card-desc">live savings calculator and disclosure banner.</text>
+    <text x="240" y="93" class="blue-code">Page: /</text>
+
+    <!-- Component 2 -->
+    <rect x="16" y="156" width="313" height="74" rx="6" fill="#0D1114" stroke="#1C242C" stroke-width="1"/>
+    <text x="28" y="177" class="card-title">Digital Boarding Pass Check-In</text>
+    <text x="28" y="195" class="card-desc">Physical ticket motif (#F3EFE6) with tear-off stub,</text>
+    <text x="28" y="211" class="card-desc">IST arrival time steppers &amp; destination mapping.</text>
+    <text x="200" y="177" class="blue-code">Page: /checkin</text>
+
+    <!-- Component 3 -->
+    <rect x="16" y="240" width="313" height="74" rx="6" fill="#0D1114" stroke="#1C242C" stroke-width="1"/>
+    <text x="28" y="261" class="card-title">Ride Pool &amp; Wait-vs-Save Curve</text>
+    <text x="28" y="279" class="card-desc">Stepped SVG timeline, FIDS Arrival Outlook,</text>
+    <text x="28" y="295" class="card-desc">cab chassis seat preview and match triggers.</text>
+    <text x="220" y="261" class="blue-code">Page: /pool</text>
+
+    <!-- Component 4 -->
+    <rect x="16" y="324" width="313" height="74" rx="6" fill="#0D1114" stroke="#1C242C" stroke-width="1"/>
+    <text x="28" y="345" class="card-title">Proposal Inbox &amp; Timers</text>
+    <text x="28" y="363" class="card-desc">Radial SVG 5-min countdown lock indicators,</text>
+    <text x="28" y="379" class="card-desc">mutual accept/decline coordination buttons.</text>
+    <text x="215" y="345" class="blue-code">Page: /inbox</text>
+
+    <!-- Component 5 -->
+    <rect x="16" y="408" width="313" height="88" rx="6" fill="#0D1114" stroke="#1C242C" stroke-width="1"/>
+    <text x="28" y="429" class="card-title">Active Trip &amp; Settlement Ledger</text>
+    <text x="28" y="447" class="card-desc">Single server-derived trip state, 160px curb code,</text>
+    <text x="28" y="463" class="card-desc">proportional fare proration &amp; UPI QR settling.</text>
+    <text x="220" y="429" class="green-code">Page: /trip</text>
+  </g>
+
+  <!-- Connection: Client to API -->
+  <line x1="385" y1="390" x2="425" y2="390" stroke="#FFB020" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arrowAmber)" />
+  <rect x="368" y="360" width="70" height="20" rx="3" fill="#1A1F24" stroke="#2B3640" stroke-width="0.8" />
+  <text x="375" y="374" class="conn-label">JSON / REST</text>
+
+  <!-- ================= TIER 2: FASTAPI BACKEND ================= -->
+  <g transform="translate(425, 130)" filter="url(#shadow)">
+    <rect width="365" height="520" rx="10" fill="url(#tierGrad1)" stroke="#1F2830" stroke-width="1.5" />
+    <rect x="16" y="16" width="333" height="42" rx="6" fill="#151C22" stroke="#25313A" stroke-width="1" />
+    <circle cx="34" cy="37" r="6" fill="#FFB020" />
+    <text x="48" y="36" class="tier-title">FastAPI Backend Services</text>
+    <text x="48" y="49" class="tier-sub">Python 3.10+ &bull; REST API &bull; Uvicorn</text>
+
+    <!-- Component 1 -->
+    <rect x="16" y="72" width="333" height="74" rx="6" fill="#0D1114" stroke="#1C242C" stroke-width="1"/>
+    <text x="28" y="93" class="card-title">Spatial Matching Engine</text>
+    <text x="28" y="111" class="card-desc">Corridor compatibility scoring, 15-min drop</text>
+    <text x="28" y="127" class="card-desc">deviations, vehicle capacity rules (3-4 riders).</text>
+    <text x="225" y="93" class="card-code">matching.py</text>
+
+    <!-- Component 2 -->
+    <rect x="16" y="156" width="333" height="74" rx="6" fill="#0D1114" stroke="#1C242C" stroke-width="1"/>
+    <text x="28" y="177" class="card-title">Trip State Machine</text>
+    <text x="28" y="195" class="card-desc">Single source of truth: MATCHING &rarr; LOCKED</text>
+    <text x="28" y="211" class="card-desc">&rarr; BOOKED &rarr; EN_ROUTE &rarr; SETTLED.</text>
+    <text x="260" y="177" class="card-code">trip.py</text>
+
+    <!-- Component 3 -->
+    <rect x="16" y="240" width="333" height="74" rx="6" fill="#0D1114" stroke="#1C242C" stroke-width="1"/>
+    <text x="28" y="261" class="card-title">Geocoding &amp; Distance Matrix</text>
+    <text x="28" y="279" class="card-desc">Offline distance matrix, equirectangular route math,</text>
+    <text x="28" y="295" class="card-desc">zone centroids and drop order sequencing.</text>
+    <text x="225" y="261" class="card-code">geo.py &amp; distance.py</text>
+
+    <!-- Component 4 -->
+    <rect x="16" y="324" width="333" height="74" rx="6" fill="#0D1114" stroke="#1C242C" stroke-width="1"/>
+    <text x="28" y="345" class="card-title">Fare Proration &amp; Whole Rupee Split</text>
+    <text x="28" y="363" class="card-desc">Proportional distance-weighted cost splitting,</text>
+    <text x="28" y="379" class="card-desc">airport toll handling, UPI settlement chips.</text>
+    <text x="230" y="345" class="green-code">split_fare()</text>
+
+    <!-- Component 5 -->
+    <rect x="16" y="408" width="333" height="88" rx="6" fill="#0D1114" stroke="#1C242C" stroke-width="1"/>
+    <text x="28" y="429" class="card-title">Simulation Engine &amp; Time Travel</text>
+    <text x="28" y="447" class="card-desc">Synthesizes dynamic passengers per arrival wave,</text>
+    <text x="28" y="463" class="card-desc">supports +10m/+30m time travel testing.</text>
+    <text x="235" y="429" class="card-code">clock.py &amp; demo_data.py</text>
+  </g>
+
+  <!-- Connection: API to Storage -->
+  <line x1="790" y1="390" x2="830" y2="390" stroke="#3DDC97" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arrowGreen)" />
+  <rect x="778" y="360" width="60" height="20" rx="3" fill="#1A1F24" stroke="#2B3640" stroke-width="0.8" />
+  <text x="785" y="374" class="conn-label">SQLAlchemy</text>
+
+  <!-- ================= TIER 3: DATA & PRIVACY ================= -->
+  <g transform="translate(830, 130)" filter="url(#shadow)">
+    <rect width="330" height="520" rx="10" fill="url(#tierGrad1)" stroke="#1F2830" stroke-width="1.5" />
+    <rect x="16" y="16" width="298" height="42" rx="6" fill="#151C22" stroke="#25313A" stroke-width="1" />
+    <circle cx="34" cy="37" r="6" fill="#3DDC97" />
+    <text x="48" y="36" class="tier-title">Data &amp; Privacy Layer</text>
+    <text x="48" y="49" class="tier-sub">Zero-PII &bull; Ephemeral Storage</text>
+
+    <!-- Component 1 -->
+    <rect x="16" y="72" width="298" height="74" rx="6" fill="#0D1114" stroke="#1C242C" stroke-width="1"/>
+    <text x="28" y="93" class="card-title">SQLite Database (ecoride.db)</text>
+    <text x="28" y="111" class="card-desc">SessionRecords, PassengerRequests,</text>
+    <text x="28" y="127" class="card-desc">Proposals, Groups, and GroupMembers.</text>
+    <text x="220" y="93" class="green-code">SQLAlchemy</text>
+
+    <!-- Component 2 -->
+    <rect x="16" y="156" width="298" height="74" rx="6" fill="#0D1114" stroke="#1C242C" stroke-width="1"/>
+    <text x="28" y="177" class="card-title">Zero PII &amp; Ephemeral Retention</text>
+    <text x="28" y="195" class="card-desc">No emails, phone numbers, or passwords.</text>
+    <text x="28" y="211" class="card-desc">All trips automatically purge after 24 hours.</text>
+    <text x="185" y="177" class="green-code">Privacy By Design</text>
+
+    <!-- Component 3 -->
+    <rect x="16" y="240" width="298" height="74" rx="6" fill="#0D1114" stroke="#1C242C" stroke-width="1"/>
+    <text x="28" y="261" class="card-title">Query-Stripped Logging</text>
+    <text x="28" y="279" class="card-desc">Access logs automatically strip query strings</text>
+    <text x="28" y="295" class="card-desc">to ensure drop coords are never written.</text>
+    <text x="200" y="261" class="card-code">_StripQueryStrings</text>
+
+    <!-- Component 4 -->
+    <rect x="16" y="324" width="298" height="74" rx="6" fill="#0D1114" stroke="#1C242C" stroke-width="1"/>
+    <text x="28" y="345" class="card-title">1-Tap Deep Link Dispatch</text>
+    <text x="28" y="363" class="card-desc">Direct pre-populated route URLs for</text>
+    <text x="28" y="379" class="card-desc">Uber, Ola, Rapido, and Namma Yatri.</text>
+    <text x="225" y="345" class="blue-code">Deep Links</text>
+
+    <!-- Component 5 -->
+    <rect x="16" y="408" width="298" height="88" rx="6" fill="#0D1114" stroke="#1C242C" stroke-width="1"/>
+    <text x="28" y="429" class="card-title">Direct P2P UPI Settlement</text>
+    <text x="28" y="447" class="card-desc">Peer-to-peer UPI handles and QR chips.</text>
+    <text x="28" y="463" class="card-desc">0% platform commission &bull; Zero escrow.</text>
+    <text x="195" y="429" class="green-code">UPI Protocol</text>
+  </g>
+
+  <!-- Footer Info Bar -->
+  <rect x="40" y="670" width="1120" height="54" rx="6" fill="#0E1317" stroke="#1D242B" stroke-width="1" />
+  <text x="60" y="702" fill="#8E989E" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12">
+    Architecture Standards: Strict Ephemeral Retention &bull; Zero-PII Coordinates &bull; Offline Routing Fallback &bull; Single Server Trip State Machine
+  </text>
+  <text x="1030" y="702" fill="#3DDC97" font-family="monospace" font-size="11" font-weight="bold">STATUS: PRODUCTION READY</text>
+</svg>
+

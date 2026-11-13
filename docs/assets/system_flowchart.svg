@@ -1,0 +1,203 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #07090A; }
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace; font-size: 26px; font-weight: 700; fill: #F3EFE6; }
+      .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #8E989E; }
+      .step-num { font-family: monospace; font-size: 11px; fill: #FFB020; font-weight: 700; }
+      .step-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; font-weight: 700; fill: #F3EFE6; }
+      .step-desc { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; fill: #9BA4A8; }
+      .step-code { font-family: monospace; font-size: 10px; fill: #3DDC97; }
+      .decision-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; font-weight: 600; fill: #FFB020; text-anchor: middle; }
+      .conn-label { font-family: monospace; font-size: 10px; fill: #8E989E; }
+    </style>
+
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141A1F" />
+      <stop offset="100%" stop-color="#0B0E11" />
+    </linearGradient>
+
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#FFB020" />
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#3DDC97" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="680" class="bg" rx="12" />
+
+  <!-- Header Banner -->
+  <rect x="40" y="30" width="1120" height="70" rx="8" fill="#0E1317" stroke="#1D242B" stroke-width="1" />
+  <circle cx="70" cy="65" r="16" fill="#1A232A" stroke="#3DDC97" stroke-width="1.5" />
+  <text x="64" y="70" fill="#3DDC97" font-family="monospace" font-size="14" font-weight="bold">FC</text>
+  <text x="100" y="58" class="title">EcoRide Share &mdash; User Journey &amp; Coordination Flowchart</text>
+  <text x="100" y="80" class="subtitle">Airport Touchdown to Destination Drop &amp; UPI Fare Settlement Pipeline</text>
+
+  <!-- ================= ROW 1: TOUCHDOWN TO MATCHING ================= -->
+
+  <!-- STEP 1: Flight Touchdown -->
+  <g transform="translate(40, 130)" filter="url(#shadow)">
+    <rect width="200" height="150" rx="8" fill="url(#cardGrad)" stroke="#1F2830" stroke-width="1.2" />
+    <rect x="12" y="12" width="60" height="20" rx="4" fill="#1C1808" stroke="#FFB020" stroke-width="0.8"/>
+    <text x="18" y="26" class="step-num">STAGE 01</text>
+    <text x="12" y="56" class="step-title">Flight Arrival at BLR</text>
+    <text x="12" y="76" class="step-desc">Passenger lands at T1/T2.</text>
+    <text x="12" y="94" class="step-desc">Connects to airport Wi-Fi</text>
+    <text x="12" y="112" class="step-desc">or mobile network.</text>
+    <text x="12" y="134" class="step-code">No App Install Required</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="240" y1="205" x2="275" y2="205" stroke="#FFB020" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- STEP 2: Ephemeral Check-In -->
+  <g transform="translate(275, 130)" filter="url(#shadow)">
+    <rect width="205" height="150" rx="8" fill="url(#cardGrad)" stroke="#1F2830" stroke-width="1.2" />
+    <rect x="12" y="12" width="60" height="20" rx="4" fill="#1C1808" stroke="#FFB020" stroke-width="0.8"/>
+    <text x="18" y="26" class="step-num">STAGE 02</text>
+    <text x="12" y="56" class="step-title">Ephemeral Check-In</text>
+    <text x="12" y="76" class="step-desc">Inputs drop destination,</text>
+    <text x="12" y="94" class="step-desc">baggage count &amp; landing hour.</text>
+    <text x="12" y="112" class="step-desc">Instant Boarding Pass stub.</text>
+    <text x="12" y="134" class="step-code">Zero Account / No Password</text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="480" y1="205" x2="515" y2="205" stroke="#FFB020" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- STEP 3: Corridor Matching Algorithm -->
+  <g transform="translate(515, 130)" filter="url(#shadow)">
+    <rect width="220" height="150" rx="8" fill="url(#cardGrad)" stroke="#273542" stroke-width="1.4" />
+    <rect x="12" y="12" width="60" height="20" rx="4" fill="#1C1808" stroke="#FFB020" stroke-width="0.8"/>
+    <text x="18" y="26" class="step-num">STAGE 03</text>
+    <text x="12" y="56" class="step-title">Matching Engine Scan</text>
+    <text x="12" y="76" class="step-desc">Clusters riders by corridor</text>
+    <text x="12" y="94" class="step-desc">(Bellandur, Whitefield, etc.).</text>
+    <text x="12" y="112" class="step-desc">Enforces &lt;15m drop deviation.</text>
+    <text x="12" y="134" class="step-code">matching.py &bull; O(N) Spatial</text>
+  </g>
+
+  <!-- Arrow 3 -> Decision -->
+  <line x1="735" y1="205" x2="780" y2="205" stroke="#FFB020" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- DECISION 1: Match Found? -->
+  <g transform="translate(780, 150)">
+    <polygon points="65,0 130,55 65,110 0,55" fill="#141C22" stroke="#FFB020" stroke-width="1.5" />
+    <text x="65" y="50" class="decision-text">Compatible</text>
+    <text x="65" y="66" class="decision-text">Group Found?</text>
+  </g>
+
+  <!-- Decision Branch: No -> Wait / Standby -->
+  <line x1="845" y1="150" x2="845" y2="105" stroke="#8E989E" stroke-width="1.5" />
+  <line x1="845" y1="105" x2="625" y2="105" stroke="#8E989E" stroke-width="1.5" />
+  <line x1="625" y1="105" x2="625" y2="128" stroke="#8E989E" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="730" y="100" class="conn-label">NO &rarr; Polls Upcoming Wave</text>
+
+  <!-- Decision Branch: Yes -> Stage 4 -->
+  <line x1="910" y1="205" x2="955" y2="205" stroke="#3DDC97" stroke-width="2" marker-end="url(#arrowGreen)" />
+  <text x="918" y="198" class="conn-label" fill="#3DDC97">YES</text>
+
+  <!-- STEP 4: 5-Min Time-Locked Proposal -->
+  <g transform="translate(955, 130)" filter="url(#shadow)">
+    <rect width="205" height="150" rx="8" fill="url(#cardGrad)" stroke="#1F2830" stroke-width="1.2" />
+    <rect x="12" y="12" width="60" height="20" rx="4" fill="#0C2418" stroke="#3DDC97" stroke-width="0.8"/>
+    <text x="18" y="26" class="step-num" fill="#3DDC97">STAGE 04</text>
+    <text x="12" y="56" class="step-title">5-Min Lock Proposal</text>
+    <text x="12" y="76" class="step-desc">All co-riders receive lock alert.</text>
+    <text x="12" y="94" class="step-desc">Radial countdown SVG timer.</text>
+    <text x="12" y="112" class="step-desc">Mutual 1-tap consensus.</text>
+    <text x="12" y="134" class="step-code">Lock Window: 300s</text>
+  </g>
+
+  <!-- Turn Down to Row 2 -->
+  <line x1="1057" y1="280" x2="1057" y2="350" stroke="#3DDC97" stroke-width="2" />
+  <line x1="1057" y1="350" x2="955" y2="350" stroke="#3DDC97" stroke-width="2" marker-end="url(#arrowGreen)" />
+
+  <!-- ================= ROW 2: DISPATCH TO SETTLEMENT ================= -->
+
+  <!-- STEP 5: Curb Code & Terminal Handoff -->
+  <g transform="translate(750, 275)" filter="url(#shadow)">
+    <rect width="205" height="150" rx="8" fill="url(#cardGrad)" stroke="#1F2830" stroke-width="1.2" />
+    <rect x="12" y="12" width="60" height="20" rx="4" fill="#0C2418" stroke="#3DDC97" stroke-width="0.8"/>
+    <text x="18" y="26" class="step-num" fill="#3DDC97">STAGE 05</text>
+    <text x="12" y="56" class="step-title">Pickup Curb Code</text>
+    <text x="12" y="76" class="step-desc">Giant 160px Mono code issued</text>
+    <text x="12" y="94" class="step-desc">on confirmed ride pass stub.</text>
+    <text x="12" y="112" class="step-desc">Members meet at airport curb.</text>
+    <text x="12" y="134" class="step-code">Visual Identity Verification</text>
+  </g>
+
+  <!-- Arrow 5 -> 6 -->
+  <line x1="750" y1="350" x2="710" y2="350" stroke="#FFB020" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- STEP 6: 1-Tap Cab Dispatch -->
+  <g transform="translate(505, 275)" filter="url(#shadow)">
+    <rect width="205" height="150" rx="8" fill="url(#cardGrad)" stroke="#1F2830" stroke-width="1.2" />
+    <rect x="12" y="12" width="60" height="20" rx="4" fill="#1C1808" stroke="#FFB020" stroke-width="0.8"/>
+    <text x="18" y="26" class="step-num">STAGE 06</text>
+    <text x="12" y="56" class="step-title">1-Tap Cab Dispatch</text>
+    <text x="12" y="76" class="step-desc">Lead rider opens Uber deep link</text>
+    <text x="12" y="94" class="step-desc">with all multi-drop stops</text>
+    <text x="12" y="112" class="step-desc">pre-populated in optimal order.</text>
+    <text x="12" y="134" class="step-code">Uber / Ola / Rapido Direct</text>
+  </g>
+
+  <!-- Arrow 6 -> 7 -->
+  <line x1="505" y1="350" x2="465" y2="350" stroke="#FFB020" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- STEP 7: In-Transit Waypoints -->
+  <g transform="translate(260, 275)" filter="url(#shadow)">
+    <rect width="205" height="150" rx="8" fill="url(#cardGrad)" stroke="#1F2830" stroke-width="1.2" />
+    <rect x="12" y="12" width="60" height="20" rx="4" fill="#1C1808" stroke="#FFB020" stroke-width="0.8"/>
+    <text x="18" y="26" class="step-num">STAGE 07</text>
+    <text x="12" y="56" class="step-title">En-Route Waypoint Drops</text>
+    <text x="12" y="76" class="step-desc">Cab drops riders in sequence.</text>
+    <text x="12" y="94" class="step-desc">Live status pins update.</text>
+    <text x="12" y="112" class="step-desc">Drop-off pins verified.</text>
+    <text x="12" y="134" class="step-code">Optimal Corridor Routing</text>
+  </g>
+
+  <!-- Arrow 7 -> 8 -->
+  <line x1="260" y1="350" x2="220" y2="350" stroke="#3DDC97" stroke-width="2" marker-end="url(#arrowGreen)" />
+
+  <!-- STEP 8: Proportional UPI Settlement -->
+  <g transform="translate(40, 275)" filter="url(#shadow)">
+    <rect width="180" height="150" rx="8" fill="url(#cardGrad)" stroke="#1F2830" stroke-width="1.2" />
+    <rect x="12" y="12" width="60" height="20" rx="4" fill="#0C2418" stroke="#3DDC97" stroke-width="0.8"/>
+    <text x="18" y="26" class="step-num" fill="#3DDC97">STAGE 08</text>
+    <text x="12" y="56" class="step-title">UPI Settlement</text>
+    <text x="12" y="76" class="step-desc">Final fare entered.</text>
+    <text x="12" y="94" class="step-desc">Whole rupee prorated split.</text>
+    <text x="12" y="112" class="step-desc">1-tap UPI QR pay to booker.</text>
+    <text x="12" y="134" class="step-code">0% Cut &bull; Immediate P2P</text>
+  </g>
+
+  <!-- Bottom Legend Bar -->
+  <rect x="40" y="475" width="1120" height="160" rx="8" fill="#0D1114" stroke="#1D242B" stroke-width="1" />
+  <text x="60" y="505" fill="#F3EFE6" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="700">Algorithm Verification &amp; Edge Case Protections</text>
+  
+  <rect x="60" y="520" width="330" height="95" rx="6" fill="#14181D" stroke="#232B33" stroke-width="1"/>
+  <text x="75" y="542" fill="#FFB020" font-family="monospace" font-size="12" font-weight="bold">&bull; No-Show &amp; Drop Protection</text>
+  <text x="75" y="564" class="step-desc">If a member fails to reach pickup curb within</text>
+  <text x="75" y="582" class="step-desc">buffer time, remaining riders can re-calculate</text>
+  <text x="75" y="600" class="step-desc">split or dispatch instantly with 1 tap.</text>
+
+  <rect x="410" y="520" width="340" height="95" rx="6" fill="#14181D" stroke="#232B33" stroke-width="1"/>
+  <text x="425" y="542" fill="#3DDC97" font-family="monospace" font-size="12" font-weight="bold">&bull; Fair Whole-Rupee Proration</text>
+  <text x="425" y="564" class="step-desc">Fares are split based on km traveled from BLR:</text>
+  <text x="425" y="582" class="step-desc">Fixed toll &amp; gate fees shared equally;</text>
+  <text x="425" y="600" class="step-desc">Distance component prorated to whole rupees.</text>
+
+  <rect x="770" y="520" width="370" height="95" rx="6" fill="#14181D" stroke="#232B33" stroke-width="1"/>
+  <text x="785" y="542" fill="#5BB2FF" font-family="monospace" font-size="12" font-weight="bold">&bull; 24-Hour Ephemeral Retention</text>
+  <text x="785" y="564" class="step-desc">Zero user profiles, zero passwords, zero tracking.</text>
+  <text x="785" y="582" class="step-desc">Sessions, ride passes, and coordination tokens</text>
+  <text x="785" y="600" class="step-desc">automatically purge 24 hours after touchdown.</text>
+</svg>
+

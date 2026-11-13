@@ -11,7 +11,15 @@
 * **No Fleet Dispatch**: Groups form on the platform. One member books a normal cab in any consumer taxi app using our pre-calculated stop sequence, and co-passengers settle their proportional share.
 * **Prior Art & Existing Services**: Acknowledges and honors pioneering services such as **Quick Ride** and **GoPool**, while differentiating through an open, zero-fee, zero-account coordination architecture.
 
-### System Architecture
+---
+
+## 2. System Architecture & Flowchart
+
+### System Architecture Diagram
+![System Architecture Diagram](docs/assets/system_architecture.svg)
+
+<details>
+<summary><b>View Mermaid Architecture Definition</b></summary>
 
 ```mermaid
 graph TD
@@ -42,8 +50,13 @@ graph TD
     API --> Anonymizer
     API --> DeepLinks
 ```
+</details>
 
 ### User Journey & Matching Flowchart
+![User Journey Flowchart](docs/assets/system_flowchart.svg)
+
+<details>
+<summary><b>View Mermaid Flowchart Definition</b></summary>
 
 ```mermaid
 flowchart LR
@@ -54,11 +67,25 @@ flowchart LR
     E --> F["Ride Confirmed & Curb Code Issued"]
     F --> G["1-Tap Cab Dispatch & Proportional UPI Split"]
 ```
-
+</details>
 
 ---
 
-## 2. Art Direction: *"Arrival Hall at Night"*
+## 3. Developed System & Prototype Showcase
+
+| 1. Landing & Convergence Map | 2. Ride Pool & Wait-vs-Save Timeline |
+| :---: | :---: |
+| ![Landing Page](docs/assets/01_landing_convergence.png) | ![Ride Pool Matching](docs/assets/02_ride_pool_matching.png) |
+| **Mathematical equirectangular BLR projection** | **Corridor matching with stepped SVG curve & cab seat preview** |
+
+| 3. Confirmed Group Boarding Pass | 4. Whole-Rupee UPI Fare Settlement |
+| :---: | :---: |
+| ![Group Ride Pass](docs/assets/03_group_ride_pass.png) | ![UPI Fare Split](docs/assets/04_upi_fare_settlement.png) |
+| **Physical paper stub ticket with 160px curb pickup code** | **Distance-prorated cost split with instant UPI chips** |
+
+---
+
+## 4. Art Direction: *"Arrival Hall at Night"*
 
 The interface is inspired by Swiss airport wayfinding crossed with an airline boarding pass. It departs radically from generic dark-mode SaaS templates through three consistent physical motifs:
 
@@ -77,7 +104,7 @@ The interface is inspired by Swiss airport wayfinding crossed with an airline bo
 
 ---
 
-## 3. Core Screens & Capabilities
+## 5. Core Screens & Capabilities
 
 1. **Landing (`/`)**: 100svh hero with soft amber radial city glow, 96px display title, signature **Convergence Map** showing mathematical equirectangular projection of BLR airport to 16 drop zones (animating 12 solo cabs into 4 shared corridors), interactive **Fare Split Calculator**, emissions poster, and honest disclosure strip.
 2. **Check-In (`/checkin`)**: Single 880px physical paper ticket boarding pass with a live updating tear-off stub. Features custom IST landing time picker (hour/minute steppers and quick chips) defaulting to the upcoming quarter-hour, 25 airport origins, drop zone map, and 180ms physical stamp animation.
@@ -93,7 +120,7 @@ The interface is inspired by Swiss airport wayfinding crossed with an airline bo
 
 ---
 
-## 4. Quickstart & Running Locally
+## 6. Quickstart & Running Locally
 
 ### Prerequisites
 - **Node.js**: v18 or higher & `npm`
@@ -140,7 +167,7 @@ Open **[http://localhost:5173](http://localhost:5173)** in your browser.
 
 ---
 
-## 5. Verification & Testing
+## 7. Verification & Testing
 
 ### Backend Unit Tests (pytest)
 ```bash
